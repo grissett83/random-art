@@ -47,8 +47,9 @@ def generate_rgb_image(red_exp, green_exp, blue_exp, width=300):
     return Image.merge("RGB", (red_image, green_image, blue_image))
 
 
-def make_gray(num_pics=1):
+def make_gray(seed, num_pics=1):
     """Creates n grayscale image files named gray0.png, gray1.png, ..."""
+    random.seed(seed)
     for i in range(num_pics):
         filename = "gray{}.png".format(i)
         gray_exp = create_expression()
@@ -57,9 +58,9 @@ def make_gray(num_pics=1):
         image.save(filename, "PNG")
 
 
-def make_color(num_pics=1):
+def make_color(seed, num_pics=1):
     """Creates n color image files named color0.png, color1.png, ..."""
-    random.seed()
+    random.seed(seed)
     for i in range(num_pics):
         filename = "color{}.png".format(i)
         red_exp = create_expression()
@@ -97,7 +98,7 @@ if __name__ == '__main__':
     print("Seed: {}".format(seed))
 
     if args.color:
-        make_color(args.number)
+        make_color(seed, args.number)
 
     if args.gray:
-        make_gray(args.number)
+        make_gray(seed, args.number)
